@@ -1,4 +1,4 @@
-# denpifs
+# spider
 Distributed network, Raspberry Pi file server
 
 ## Hardware
