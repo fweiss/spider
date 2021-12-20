@@ -1,6 +1,10 @@
 ## CM4
 configurations: https://datasheets.raspberrypi.com/cm4/cm4-product-brief.pdf
 
+# Specification
+nominal temperature: 20 to +85C
+
+
 ## CM4
 - CM4 thick: 1.20
 CM4 holes:2.64
@@ -9,3 +13,7 @@ IO thick: 1.65
 IO holes: 2.92
 IO conn: 1.22
 Space: 1.30 (3/64")
+
+## Throttling performance
+https://www.martinrowan.co.uk/2019/09/raspberry-pi-4-cases-temperature-and-cpu-throttling-under-load/
+
