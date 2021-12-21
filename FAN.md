@@ -17,12 +17,6 @@ Ways to control fan
 - PWM GPIO
 - I2C control chip (e.g. EMC2301)
 
-## Waveshare Fan-4010-PWM-5V
-
-## Waveshare Fan-4010-PWM-12V
-- rated speed 5000 rpm
-- rated power 0.48W (12V, 0.04±0.02A)
-
 ## Links and references
 kernal module for use with EMC2301
 https://github.com/neg2led/cm4io-fan
