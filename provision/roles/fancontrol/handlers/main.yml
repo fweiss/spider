@@ -1,0 +1,6 @@
+---
+- name: Start fancontrol
+  systemd:
+    name: fancontrol
+    state: started
+    enabled: yes

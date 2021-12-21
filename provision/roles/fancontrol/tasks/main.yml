@@ -1,0 +1,22 @@
+# Adjust the fan speed minimizing noise
+---
+- name: The fan control systemd config
+  copy:
+    src: fancontrol.service
+    dest: /etc/systemd/system
+    mode: 0644
+  notify: Start fancontrol
+
+- name: The fan control logic script
+  copy:
+    src: fancontrol.py
+    dest: /usr/local/sbin/fan.py
+    mode: 0744
+  notify: Start fancontrol
+
+- name: Adjust the fan speed once every minute
+  ansible.builtin.cron:
+    name: fancontrol
+    user: root
+    job: "python3 /usr/local/sbin/fan.py"
+    state: absent
