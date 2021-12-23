@@ -28,11 +28,3 @@ https://coderwall.com/p/6zm8rq/how-to-create-a-lamp-stack-with-ansible
 Install Ansible on Windows 10 with WSL: https://phoenixnap.com/kb/install-ansible-on-windows#htoc-method-3-enabling-ubuntu-on-windows
 
 > The windows drives are at /mnt, e,g, ``/mnt/c``
-
-## fancontrol
-``sudo apt install fancontrol``
-
-
-
-
-
