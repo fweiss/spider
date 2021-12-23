@@ -2,6 +2,8 @@
 - hosts: all
   become: yes
   roles:
-    - fancontrol
-#    - apache2
-#    - mariadb
+  - fancontrol
+  - apache2
+  - certbot-apache2
+  - mariadb
+  # naf, drupal

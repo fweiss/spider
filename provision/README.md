@@ -1,14 +1,22 @@
 # Provisioning with Ansible
 The playbook will provision the Raspberry Pi with:
+- fancontrol
 - apache2
 - php 8.0
+- SSL for apache2
 - mariadb
 
-> Coming soon: apache2/SSL, drupal, fan control
+> Coming soon: NAF, drupal
 
 ## Setup Ansible
 There are [several methods](https://phoenixnap.com/kb/install-ansible-on-windows) to setup Ansible on Windows.
 I chose the WSL (Windows Subsystem for Linux) method because it seems to be the simplest.
+
+Synopsis:
+- on W10, enable WSL
+- from Windows store, get ubuntu 20.4
+- install ansible, etc
+- cd to project directory /mnt/*
 
 ## Running the playbook
 Run the playbook from the command line:
@@ -19,15 +27,14 @@ ansible-playbook -i hosts playbook.yml
 
 ## Check the finished system
 results:
-- http://server => apache info
-- http://server/index.php => hello world
-- http://server/db.php => Hello World!
+- https://server => apache info
+- https://server/index.php => hello world
+- https://server/db.php => Hello World!
 
-> Todo: SSL, drupal NAF
+> Todo: drupal, NAF
 
 ## Notes and references
 additional packages required for ansible:
-
 
 sudo apt install python3-pip
 sudo pip3 install pymsql
@@ -60,11 +67,5 @@ so,
 
 ``export ANSIBLE_KEEP_REMOTE_FILES=1``
 
-## synopsis
-- on W10, enable WSL
-- from Windows store, get ubuntu 20.4
-- install ansible, etc
-- cd to project directory /mnt/*
-- 
-
-
+## letsencrypt role
+https://linuxbuz.com/linuxhowto/install-letsencrypt-ssl-ansible

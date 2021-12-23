@@ -1,0 +1,29 @@
+---
+- name: python3
+  apt:
+    name: python3
+    update_cache: yes
+    state: latest
+
+- name: certbot
+  apt:
+    name: "python3-certbot-apache"
+    update_cache: yes
+    state: latest
+
+- name: update cert
+  command: >-
+    certbot
+    --apache
+    -d vrchat.castrosf.org
+    --agree-tos
+    -m feweiss@gmail.com
+    --noninteractive
+    --redirect 
+
+- name: Reissue a cert every month
+  ansible.builtin.cron:
+    name: certbot
+    user: root
+    special_time: monthly
+    job: "/usr/bin/certbot renew"
