@@ -1,6 +1,6 @@
 ---
-- name: Start fancontrol
+- name: Start raspi fan
   systemd:
-    name: fancontrol
+    name: raspi-fan
     state: started
     enabled: yes

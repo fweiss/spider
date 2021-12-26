@@ -2,9 +2,9 @@
 - hosts: all
   become: yes
   roles:
-  # - fancontrol
+  - raspi-fan
   # - apache2
   # - certbot-apache2
   # - mariadb
-  - naf
-  # naf, drupal
+  # - naf
+  # - drupal

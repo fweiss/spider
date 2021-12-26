@@ -2,8 +2,8 @@
 Information about some fans
 
 ## Waveshare Fan-4010-PWM-5V
-> The sense period has differencet values depending on sequences
-> 
+> The steady-state sense period has different values depending on sequences.
+ 
 1 black GND
 2 red +5V
 3 blue SENSE
