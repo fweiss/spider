@@ -69,3 +69,6 @@ so,
 
 ## letsencrypt role
 https://linuxbuz.com/linuxhowto/install-letsencrypt-ssl-ansible
+
+## Links and references
+https://github.com/Unitech/pm2

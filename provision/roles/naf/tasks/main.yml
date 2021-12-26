@@ -1,0 +1,110 @@
+---
+- name: NodeJS
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: latest
+  with_items:
+    - nodejs
+    - npm
+
+- name: naf user
+  user:
+    name: naf
+    create_home: yes
+
+- name: naf server directory
+  file:
+    path: /srv/naf
+    owner: naf
+    mode: 0755
+    state: directory
+
+# also need /home/naf/.ansible/tmp
+
+# possible error: package-lock.json is changed - update: false fixed it
+- name: naf code
+  become: yes
+  become_user: naf
+  git:
+    repo: https://github.com/networked-aframe/networked-aframe.git
+    dest: /srv/naf
+    update: false
+
+- name: naf node modules
+  become: yes
+  become_user: naf
+  npm:
+    path: /srv/naf
+
+# maybe separate role for this
+- name: mod proxy
+  community.general.apache2_module:
+    name: "{{ item }}"
+  with_items:
+  - proxy
+  - proxy_http
+
+# todo regex to place at correct line
+- name: proxy to naf
+  blockinfile:
+    path: /etc/apache2/sites-available/000-default-le-ssl.conf
+    block: |
+      ProxyPass "/" "http://localhost:8080/"
+      ProxyPassReverse "/" "http://localhost:8080/"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK proxy naf"
+
+# and now forever naf
+# - name: node forever
+#   npm:
+#     name: forever
+#     global: yes
+#     state: absent
+
+# - name: check naf forever
+#   command: "forever list"
+#   register: forever
+
+# - name: start forever naf
+#   become: yes
+#   become_user: naf
+#   command: "forever start /srv/naf/server/easyrtc-server.js"
+#   when: "forever.stdout.find('/srv/naf/server/easyrtc-server.js') == -1"
+
+- name: node pm2
+  npm:
+    name: pm2
+    global: yes
+
+- name: pm2 systemd service
+  command:
+    cmd: >-
+      sudo
+      env
+      PATH=$PATH:/usr/bin
+      /usr/local/lib/node_modules/pm2/bin/pm2
+      startup
+      systemd
+      -u naf
+      --hp /home/naf
+    creates: /etc/systemd/system/pm2-naf.service
+
+# was having sync issues on bootup
+# - name: pm2 autodump
+#   command: "pm2 set pm2:autodump true"
+
+# mabe startOrReload
+- name: start naf
+  become: yes
+  become_user: naf
+  command: >-
+    pm2
+    start
+    -f
+    --cwd /srv/naf
+    /srv/naf/server/easyrtc-server.js
+
+- name: save naf service
+  become: yes
+  become_user: naf
+  command: "pm2 save"
