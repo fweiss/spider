@@ -10,13 +10,13 @@
 
 - name: naf user
   user:
-    name: naf
+    name: "{{ NAF_USER }}"
     create_home: yes
 
 - name: naf server directory
   file:
-    path: /srv/naf
-    owner: naf
+    path: "{{ NAF_SERVER_DIR }}"
+    owner: "{{ NAF_USER }}"
     mode: 0755
     state: directory
 
@@ -25,17 +25,17 @@
 # possible error: package-lock.json is changed - update: false fixed it
 - name: naf code
   become: yes
-  become_user: naf
+  become_user: "{{ NAF_USER }}"
   git:
-    repo: https://github.com/networked-aframe/networked-aframe.git
-    dest: /srv/naf
+    repo: "{{ NAF_REPO_URL }}"
+    dest: "{{ NAF_SERVER_DIR }}"
     update: false
 
 - name: naf node modules
   become: yes
-  become_user: naf
+  become_user: "{{ NAF_USER }}"
   npm:
-    path: /srv/naf
+    path: "{{ NAF_SERVER_DIR }}"
 
 # maybe separate role for this
 - name: mod proxy
@@ -54,23 +54,6 @@
       ProxyPassReverse "/" "http://localhost:8080/"
     marker: "# {mark} ANSIBLE MANAGED BLOCK proxy naf"
 
-# and now forever naf
-# - name: node forever
-#   npm:
-#     name: forever
-#     global: yes
-#     state: absent
-
-# - name: check naf forever
-#   command: "forever list"
-#   register: forever
-
-# - name: start forever naf
-#   become: yes
-#   become_user: naf
-#   command: "forever start /srv/naf/server/easyrtc-server.js"
-#   when: "forever.stdout.find('/srv/naf/server/easyrtc-server.js') == -1"
-
 - name: node pm2
   npm:
     name: pm2
@@ -85,26 +68,22 @@
       /usr/local/lib/node_modules/pm2/bin/pm2
       startup
       systemd
-      -u naf
-      --hp /home/naf
-    creates: /etc/systemd/system/pm2-naf.service
-
-# was having sync issues on bootup
-# - name: pm2 autodump
-#   command: "pm2 set pm2:autodump true"
+      -u {{ NAF_USER }}
+      --hp /home/{{ NAF_USER }}
+    creates: /etc/systemd/system/pm2-{{ NAF_USER }}.service
 
 # mabe startOrReload
 - name: start naf
   become: yes
-  become_user: naf
+  become_user: "{{ NAF_USER }}"
   command: >-
     pm2
     start
     -f
-    --cwd /srv/naf
-    /srv/naf/server/easyrtc-server.js
+    --cwd {{ NAF_SERVER_DIR }}
+    {{ NAF_APP_PATH }}
 
 - name: save naf service
   become: yes
-  become_user: naf
+  become_user: "{{ NAF_USER }}"
   command: "pm2 save"

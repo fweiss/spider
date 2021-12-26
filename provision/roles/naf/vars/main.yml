@@ -1,0 +1,4 @@
+NAF_USER: naf
+NAF_SERVER_DIR: /srv/naf
+NAF_APP_PATH: /srv/naf/server/easyrtc-server.js
+NAF_REPO_URL: https://github.com/networked-aframe/networked-aframe.git
