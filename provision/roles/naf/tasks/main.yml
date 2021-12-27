@@ -37,6 +37,15 @@
   npm:
     path: "{{ NAF_SERVER_DIR }}"
 
+- name: naf build
+  become: yes
+  become_user: "{{ NAF_USER }}"
+  command:
+    cmd: npm run build
+    chdir: "{{ NAF_SERVER_DIR }}"
+
+# naf will be started by pm2 later on
+
 # maybe separate role for this
 - name: mod proxy
   community.general.apache2_module:
@@ -71,6 +80,11 @@
       -u {{ NAF_USER }}
       --hp /home/{{ NAF_USER }}
     creates: /etc/systemd/system/pm2-{{ NAF_USER }}.service
+
+- name: delete previous pm2 processes
+  become: yes
+  become_user: "{{ NAF_USER }}"
+  command: pm2 delete all
 
 # mabe startOrReload
 - name: start naf

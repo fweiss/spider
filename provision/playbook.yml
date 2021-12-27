@@ -3,8 +3,8 @@
   become: yes
   roles:
   - raspi-fan
-  # - apache2
-  # - certbot-apache2
-  # - mariadb
-  # - naf
-  # - drupal
+  - apache2
+  - certbot-apache2
+  - mariadb
+  - naf
+  - drupal

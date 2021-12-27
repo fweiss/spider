@@ -70,5 +70,8 @@ so,
 ## letsencrypt role
 https://linuxbuz.com/linuxhowto/install-letsencrypt-ssl-ansible
 
+## Role "naf"
+/home/naf/.pm2/logs/easyrtc-server-error.log
+
 ## Links and references
 https://github.com/Unitech/pm2
