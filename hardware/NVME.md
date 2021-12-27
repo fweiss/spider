@@ -20,3 +20,6 @@ Western Digital SN530
 
 The smaller ones are usually OEM.
 Available stock pulled from laptops.
+
+## SDD that was used
+Samsung MZ-ALQ1280
