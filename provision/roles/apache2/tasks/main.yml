@@ -6,10 +6,9 @@
     name: apache2
     state: present
 
-# for raspbian: php7.4, for Ubunto 21.10: php8.0
 - name: install PHP module for Apache
   apt:
-    name: libapache2-mod-php8.0
+    name: "libapache2-mod-php{{ MOD_PHP_VER }}"
     state: present
 
 - name: start Apache

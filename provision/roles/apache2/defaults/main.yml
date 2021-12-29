@@ -1,0 +1,4 @@
+# php version that apache will load
+# example: libapache2-mod-php8.0
+# for raspbian: php7.4, for Ubunto 21.10: php8.0
+MOD_PHP_VER: "7.4"

@@ -1,10 +1,14 @@
 ---
 - hosts: all
   become: yes
+
+  vars:
+    MOD_PHP_VER: "8.0"
+
+# TODO: drupal
   roles:
   - raspi-fan
   - apache2
   - certbot-apache2
   - mariadb
   - naf
-  # - drupal
