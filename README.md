@@ -11,6 +11,19 @@ Using a RPI4 platform with NVMe SSD.
 ## Software
 Software is provisioned via Ansible.
 
+## Setup overview
+- prepare EEPROM for booting from USB/NVME
+- load the OS onto SSD
+- setup Ansible playbook parameters
+- run the playbook
+
+## Setup Ansible playbook parameters
+- find the RPI IP address from DHCP
+- ssh and confirm fingerprint
+- recommend change password or set cert auth
+- first check ssh
+
+
 ## Performance
 ```
 sudo apt update
