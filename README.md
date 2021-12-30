@@ -8,6 +8,8 @@ Using a RPI4 platform with NVMe SSD.
 - WaveShare IO board
 - SSD
 
+![Raspberry Pi Server](case.png)
+
 ## Software
 Software is provisioned via Ansible.
 
@@ -23,6 +25,8 @@ Software is provisioned via Ansible.
 - recommend change password or set cert auth
 - first check ssh
 
+> If you've forgotten how: [Two simple steps for passwordless ssh](https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login)
+
 ## Run the Ansible playbook
 Checklist:
 - passwordless login to target RPI
@@ -32,10 +36,9 @@ Checklist:
 Run the playbook:
 ``ansible-playbook -i hosts playbook.yml``
 
-> If you've forgotten how: [Two simple steps for passwordless ssh](https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login)
+> Initial play: about 15 minutes??, repeat play about 3 minutes.
 
-
-## Performance
+## Cooling performance
 ```
 sudo apt update
 sudo apt install sysbench
