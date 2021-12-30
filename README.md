@@ -23,6 +23,8 @@ Software is provisioned via Ansible.
 - recommend change password or set cert auth
 - first check ssh
 
+> If you've forgotten how: [Two simple steps for passwordless ssh](https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login)
+
 
 ## Performance
 ```

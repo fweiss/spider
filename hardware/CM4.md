@@ -1,7 +1,7 @@
 ## CM4
 configurations: https://datasheets.raspberrypi.com/cm4/cm4-product-brief.pdf
 
-# Specification
+## Specification
 nominal temperature: 20 to +85C
 
 ## CM4
@@ -15,6 +15,11 @@ instead of relying on the board-to-board connectors.
 - IO holes: 2.92
 - IO conn: 1.22
 - Space: 1.30 (3/64")
+
+## USB Hub
+- FE 1.1s
+- USB 2.0 hub
+- ME33205B160210
 
 ## Throttling performance
 https://www.martinrowan.co.uk/2019/09/raspberry-pi-4-cases-temperature-and-cpu-throttling-under-load/
