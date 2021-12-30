@@ -37,6 +37,7 @@
   npm:
     path: "{{ NAF_SERVER_DIR }}"
 
+# this is rather lengthy, maybe only the production modules should have been used?
 - name: naf build
   become: yes
   become_user: "{{ NAF_USER }}"
@@ -81,10 +82,17 @@
       --hp /home/{{ NAF_USER }}
     creates: /etc/systemd/system/pm2-{{ NAF_USER }}.service
 
+- name: check for exiting naf processes
+  command: ls /home/naf/.pm2/pids
+  register: pm2_processes
+
 - name: delete previous pm2 processes
   become: yes
   become_user: "{{ NAF_USER }}"
+  # ignore_errors: yes
   command: pm2 delete all
+  when: pm2_processes["stdout_lines"] | length > 0
+
 
 # mabe startOrReload
 - name: start naf

@@ -23,6 +23,15 @@ Software is provisioned via Ansible.
 - recommend change password or set cert auth
 - first check ssh
 
+## Run the Ansible playbook
+Checklist:
+- passwordless login to target RPI
+- DNS routes hostname DNS address to router WAN IP address
+- router forwards HTTP and HTTPS to target IP address
+
+Run the playbook:
+``ansible-playbook -i hosts playbook.yml``
+
 > If you've forgotten how: [Two simple steps for passwordless ssh](https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login)
 
 
