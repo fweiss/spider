@@ -1,5 +1,5 @@
 # spider
-Distributed network, Raspberry Pi file server
+Raspberry Pi file server
 
 ## Hardware
 Using a RPI4 platform with NVMe SSD.
