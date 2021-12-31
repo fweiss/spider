@@ -5,8 +5,9 @@ The playbook will provision the Raspberry Pi with:
 - php 8.0
 - SSL for apache2
 - mariadb
+- NAF
 
-> Coming soon: NAF, drupal
+> Coming soon: drupal
 
 ## Setup Ansible
 There are [several methods](https://phoenixnap.com/kb/install-ansible-on-windows) to setup Ansible on Windows.
@@ -17,6 +18,11 @@ Synopsis:
 - from Windows store, get ubuntu 20.4
 - install ansible, etc
 - cd to project directory /mnt/*
+
+## Playbook parameters
+- target host LAN IP address
+- target host public DNS address
+- certbot email
 
 ## Running the playbook
 Run the playbook from the command line:

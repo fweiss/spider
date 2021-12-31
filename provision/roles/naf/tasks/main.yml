@@ -8,6 +8,7 @@
     - nodejs
     - npm
 
+# todo: /home/naf/.ansible?
 - name: naf user
   user:
     name: "{{ NAF_USER }}"
@@ -82,7 +83,15 @@
       --hp /home/{{ NAF_USER }}
     creates: /etc/systemd/system/pm2-{{ NAF_USER }}.service
 
-- name: check for exiting naf processes
+# chicken and egg problem: ~/naf/.pm2 not created until pm2 start
+- name: seed empty pids
+  file:
+    path: /home/naf/.pm2/pids
+    owner: naf
+    mode: 0755
+    state: directory
+
+- name: check for existing naf processes
   command: ls /home/naf/.pm2/pids
   register: pm2_processes
 
@@ -95,7 +104,8 @@
 
 
 # mabe startOrReload
-- name: start naf
+# why start at each play? is reload node required?
+- name: pm2 start naf
   become: yes
   become_user: "{{ NAF_USER }}"
   command: >-
@@ -105,7 +115,7 @@
     --cwd {{ NAF_SERVER_DIR }}
     {{ NAF_APP_PATH }}
 
-- name: save naf service
+- name: save pm2 naf service
   become: yes
   become_user: "{{ NAF_USER }}"
   command: "pm2 save"

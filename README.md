@@ -4,14 +4,24 @@ Raspberry Pi file server
 ## Hardware
 Using a RPI4 platform with NVMe SSD.
 
-- CM4
-- WaveShare IO board
-- SSD
+- CM4 Lite 8GB no WiFi/BT
+- WaveShare Mini Base Board (A) with M.2 socket
+- NVMe SSD size 2242 up to 2TB
+- Waveshare CM4 IO BASE BOX and 4-pin fan
 
 ![Raspberry Pi Server](case.png)
 
 ## Software
 Software is provisioned via Ansible.
+In this way, the installation and configuration is automated and repeatable.
+
+- custom raspi-fan speed control service
+- Apache2 web server
+- certbot/Let's Encrypt SSL
+- PHP 8.0
+- MariaDB
+- NodeJS
+- Networked A-Frame VR server
 
 ## Setup overview
 - prepare EEPROM for booting from USB/NVME
@@ -19,11 +29,30 @@ Software is provisioned via Ansible.
 - setup Ansible playbook parameters
 - run the playbook
 
+### Prepare EEPROM for booting from USB/NVME
+Follow the details in [NVME](NVME.md).
+This only has to be done once for the Raspberry Pi 4 B or CM4.
+
+### Install the target OS image
+There are several ways to put a Raspberry Pi OS image on an SDcard or SSD.
+For reference, this is the process I used:
+- launch Raspberry Pi Imager
+- select Other general purpose OS > Ubuntu > Ubuntu Server 21.10 (RPI 3/4/400) 64-bit server OS for arm64 architectures
+- select the SDCard or SSD
+- click Write
+
+> See notes in [NVME](NVME.md) for reason Ubuntu Server 21.10 was chosen.
+
+After the image is written and verfied, make sure to enable ssh.
+
+> On Mac, run ``touch /Volumes/system-boot/ssh``
+
 ## Setup Ansible playbook parameters
+Install Ansible, etc.
 - find the RPI IP address from DHCP
 - ssh and confirm fingerprint
 - recommend change password or set cert auth
-- first check ssh
+- you should be able to login with password
 
 > If you've forgotten how: [Two simple steps for passwordless ssh](https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login)
 

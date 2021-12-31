@@ -1,30 +1,32 @@
 ---
-- name: python3
+- name: python3 installed
   apt:
     name: python3
     update_cache: yes
     state: latest
 
-- name: certbot
+- name: certbot installed
   apt:
     name: "python3-certbot-apache"
     update_cache: yes
     state: latest
+  register: certbot
 
-# need to fix before php/naf are installed?
-- name: update cert
+- name: certbot apache
   command: >-
     certbot
     --apache
-    -d vrchat.castrosf.org
+    -d {{ PUBLIC_HOST }}
     --agree-tos
-    -m feweiss@gmail.com
+    -m {{ EXPIRATION_EMAIL }}
     --noninteractive
-    --redirect 
+    --redirect
+  when: certbot
 
-- name: Reissue a cert every month
+- name: certbot crontab
   ansible.builtin.cron:
     name: certbot
     user: root
     special_time: monthly
     job: "/usr/bin/certbot renew"
+  when: certbot
