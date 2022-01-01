@@ -31,5 +31,5 @@
   - raspi-fan
   - apache2
   - certbot-apache2
-  - mariadb
   - naf
+  - mariadb

@@ -1,6 +1,0 @@
----
-- name: Start raspi fan
-  systemd:
-    name: raspi-fan
-    state: started
-    enabled: yes

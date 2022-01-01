@@ -1,15 +1,21 @@
-# Adjust the fan speed minimizing noise
 ---
-- name: raspi fan systemd config
-  copy:
-    src: raspi-fan.service
-    dest: /etc/systemd/system
-    mode: 0644
-  notify: Start raspi fan
+# Service that adjusts the fan speed to minimize noise
 
 - name: raspi fan service script
   copy:
     src: raspi-fan.py
     dest: /usr/local/sbin/raspi-fan.py
     mode: 0744
-  notify: Start raspi fan
+
+- name: raspi fan systemd config
+  copy:
+    src: raspi-fan.service
+    dest: /etc/systemd/system
+    mode: 0644
+
+- name: Start raspi fan service
+  systemd:
+    name: raspi-fan
+    state: started
+    enabled: yes
+

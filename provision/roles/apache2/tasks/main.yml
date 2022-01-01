@@ -6,20 +6,8 @@
     name: apache2
     state: present
 
-- name: install PHP module for Apache
-  apt:
-    name: "libapache2-mod-php{{ MOD_PHP_VER }}"
-    state: present
-
 - name: start Apache
   service:
     name: apache2
     state: started
     enabled: yes
-
-# only useful for pre-virtual host testing
-- name: install Hello World PHP script
-  copy:
-    src: index.php
-    dest: /var/www/html/index.php
-    mode: 0664
