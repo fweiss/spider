@@ -12,17 +12,19 @@
     state: latest
   register: certbot
 
+# todo: optional email instead of --register-unsafely-without-email
 - name: certbot apache
   command: >-
     certbot
     --apache
-    -d {{ PUBLIC_HOST }}
+    -d {{ PUBLIC_HOSTNAME }}
     --agree-tos
-    -m {{ EXPIRATION_EMAIL }}
+    --register-unsafely-without-email
     --noninteractive
     --redirect
   when: certbot
 
+# todo: check if quiet or noninteractive are needed
 - name: certbot crontab
   ansible.builtin.cron:
     name: certbot

@@ -1,9 +1,30 @@
 ---
-- hosts: all
-  become: yes
+# start with a wrapper that prompts for inventory
 
-  vars:
-    MOD_PHP_VER: "8.0"
+- hosts: localhost
+  gather_facts: no
+
+  vars_prompt:
+  - name: THE_PUBLIC_HOSTNAME
+    prompt: What is the public hostname (FQDN)?
+    private: no
+
+  - name: LOCAL_HOST_IP
+    prompt: What is the IP address of the host on the LAN?
+    private: no
+
+  tasks:
+  - name: dynamic hosts
+    add_host:
+      name: "{{ LOCAL_HOST_IP }}"
+      groups: dynamically_created_hosts
+      ansible_ssh_user: ubuntu
+      PUBLIC_HOSTNAME: "{{ THE_PUBLIC_HOSTNAME }}"
+
+# now the main play using the dynamically created host
+
+- hosts: dynamically_created_hosts
+  become: yes
 
 # TODO: drupal
   roles:

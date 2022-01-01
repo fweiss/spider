@@ -43,10 +43,6 @@ For reference, this is the process I used:
 
 > See notes in [NVME](NVME.md) for reason Ubuntu Server 21.10 was chosen.
 
-After the image is written and verfied, make sure to enable ssh.
-
-> On Mac, run ``touch /Volumes/system-boot/ssh``
-
 ## Setup Ansible playbook parameters
 Install Ansible, etc.
 - find the RPI IP address from DHCP
@@ -63,9 +59,16 @@ Checklist:
 - router forwards HTTP and HTTPS to target IP address
 
 Run the playbook:
-``ansible-playbook -i hosts playbook.yml``
+``ansible-playbook playbook.yml``
 
-> Initial play: about 15 minutes??, repeat play about 3 minutes.
+> Ignore this: [WARNING]: provided hosts list is empty, only localhost is available.
+> Note that the implicit localhost does not match 'all'.
+
+You'll be prompted for:
+- the FQDN of the host that will serve HTTPS
+- the LAN IP address of the Raspberry Pi to provision with Ansible
+
+> Initial play: about 15 minutes, repeat play about 3 minutes.
 
 ## Cooling performance
 ```
